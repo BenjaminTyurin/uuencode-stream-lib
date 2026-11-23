@@ -58,3 +58,10 @@ to discard the padding.
 - `encode(source)` — takes a sync or async iterable of `Uint8Array` chunks,
   returns a `Promise<string>` of encoded lines each ending in `\n`. Throws
   `TypeError` for a non-iterable source or a non-`Uint8Array` chunk.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
